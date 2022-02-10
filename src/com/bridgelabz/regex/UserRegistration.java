@@ -4,24 +4,62 @@ import java.util.regex.Pattern;
 
 public class UserRegistration {
 
-	public static void main(String[] args) {
-		String fName = ScannerUtil.getString("Enter valid first name");
-		System.out.println(fName + ":" + isMatch(RegularExpression.nameRegex, fName));
-		String pinCode = ScannerUtil.getString("Enter Pincode:");
-		System.out.println(pinCode + " :" + isMatch(RegularExpression.pinCodeRegex, pinCode));
-		String email = ScannerUtil.getString("Enter email:");
-		System.out.println(email + " :" + isMatch(RegularExpression.emailRegex, email));
-		String password = ScannerUtil.getString("Enter password:");
-		System.out.println(password + " :" + isMatch(RegularExpression.passwordRegex, password));
+	public void isValidateFirstName(String firstName) {
+		if (!validateRegex(firstName, RegexConstants.FIRST_NAME_REGEX))
+			System.out.println("Invalid First name");
+		else 
+			System.out.println("Valid First name");
 	}
 
-	private static boolean isMatch(String regex, String userInput) {
-		boolean isValid = Pattern.matches(regex, userInput);
-		if (isValid)
-			System.out.println("The given input is valid");
+	public void isValidateLastName(String lastName) {
+		if (!validateRegex(lastName, RegexConstants.LAST_NAME_REGEX))
+			System.out.println("Invalid Last name");
 		else
-			System.out.println("The given input is invalid");
-		return isValid;
+			System.out.println("Valid Last name");
+	}
+
+	public void isValidateEmail(String email) {
+		if (!validateRegex(email, RegexConstants.EMAIL_ID_REGEX))
+			System.out.println("Invalid Email Id");
+		else
+			System.out.println("Valid email");
+	}
+
+	public void isValidateMobileNumber(String mobileNumber) {
+		if (!validateRegex(mobileNumber, RegexConstants.MOBILE_NUMBER_REGEX))
+			System.out.println("Invalid Mobile Number");
+		else
+			System.out.println("Valid Mobile Number");
+	}
+
+	public void isValidatePassword(String password) {
+		if (!validateRegex(password, RegexConstants.PASSWORD_REGEX))
+			System.out.println("Invalid Password");
+		else
+			System.out.println("Valid Password");
+	}
+
+	private boolean validateRegex(String request, String pattern) {
+		return Pattern.compile(pattern).matcher(request).matches() ? true : false;
+	}
+	
+	public static void main(String[] args) {
+		UserRegistration user = new UserRegistration();
+		String fName = ScannerUtil.getString("Enter first name");
+		System.out.println(fName + ": "); 
+		user.isValidateFirstName(fName);
+		String lName = ScannerUtil.getString("Enter last Name");
+		System.out.println(lName + " : ");
+		user.isValidateLastName(lName);
+		String mobile = ScannerUtil.getString("Enter mobile number");
+		System.out.println(lName + " : ");
+		user.isValidateMobileNumber(mobile);
+		String email = ScannerUtil.getString("Enter email:");
+		System.out.println(email + " : ");
+		user.isValidateEmail(email);
+		String password = ScannerUtil.getString("Enter password:");
+		System.out.println(password + " : "); 
+		user.isValidatePassword(password);
 	}
 
 }
