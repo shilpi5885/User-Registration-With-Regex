@@ -4,62 +4,42 @@ import java.util.regex.Pattern;
 
 public class UserRegistration {
 
-	public void isValidateFirstName(String firstName) {
+	public boolean isValidateFirstName(String firstName) {
 		if (!validateRegex(firstName, RegexConstants.FIRST_NAME_REGEX))
-			System.out.println("Invalid First name");
-		else 
-			System.out.println("Valid First name");
+			return false;
+		else
+			return true;
 	}
 
-	public void isValidateLastName(String lastName) {
+	public boolean isValidateLastName(String lastName) {
 		if (!validateRegex(lastName, RegexConstants.LAST_NAME_REGEX))
-			System.out.println("Invalid Last name");
+			return false;
 		else
-			System.out.println("Valid Last name");
+			return true;
 	}
 
-	public void isValidateEmail(String email) {
+	public boolean isValidateEmail(String email) {
 		if (!validateRegex(email, RegexConstants.EMAIL_ID_REGEX))
-			System.out.println("Invalid Email Id");
+			return false;
 		else
-			System.out.println("Valid email");
+			return true;
 	}
 
-	public void isValidateMobileNumber(String mobileNumber) {
+	public boolean isValidateMobileNumber(String mobileNumber) {
 		if (!validateRegex(mobileNumber, RegexConstants.MOBILE_NUMBER_REGEX))
-			System.out.println("Invalid Mobile Number");
+			return false;
 		else
-			System.out.println("Valid Mobile Number");
+			return true;
 	}
 
-	public void isValidatePassword(String password) {
+	public boolean isValidatePassword(String password) {
 		if (!validateRegex(password, RegexConstants.PASSWORD_REGEX))
-			System.out.println("Invalid Password");
+			return false;
 		else
-			System.out.println("Valid Password");
+			return true;
 	}
 
 	private boolean validateRegex(String request, String pattern) {
 		return Pattern.compile(pattern).matcher(request).matches() ? true : false;
 	}
-	
-	public static void main(String[] args) {
-		UserRegistration user = new UserRegistration();
-		String fName = ScannerUtil.getString("Enter first name");
-		System.out.println(fName + ": "); 
-		user.isValidateFirstName(fName);
-		String lName = ScannerUtil.getString("Enter last Name");
-		System.out.println(lName + " : ");
-		user.isValidateLastName(lName);
-		String mobile = ScannerUtil.getString("Enter mobile number");
-		System.out.println(lName + " : ");
-		user.isValidateMobileNumber(mobile);
-		String email = ScannerUtil.getString("Enter email:");
-		System.out.println(email + " : ");
-		user.isValidateEmail(email);
-		String password = ScannerUtil.getString("Enter password:");
-		System.out.println(password + " : "); 
-		user.isValidatePassword(password);
-	}
-
 }
