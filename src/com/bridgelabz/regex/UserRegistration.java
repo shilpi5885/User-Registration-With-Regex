@@ -1,45 +1,153 @@
 package com.bridgelabz.regex;
 
-import java.util.regex.Pattern;
+import static org.junit.Assert.assertTrue;
 
-public class UserRegistration {
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
-	public boolean isValidateFirstName(String firstName) {
-		if (!validateRegex(firstName, RegexConstants.FIRST_NAME_REGEX))
-			return false;
-		else
-			return true;
+public class UserRegistrationTest {
+	private UserRegistration user;
+
+	@Before
+	public void UserRegistrationObj() {
+		user = new UserRegistration();
 	}
 
-	public boolean isValidateLastName(String lastName) {
-		if (!validateRegex(lastName, RegexConstants.LAST_NAME_REGEX))
-			return false;
-		else
-			return true;
+	@Test
+	public void testFirstName_thenAssertionSucceeds() {
+		try {
+			assertTrue(user.isValidateFirstName("Kalpesh"));
+			System.out.println("Valid First Name");
+		} catch (UserRegistrationException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
-	public boolean isValidateEmail(String email) {
-		if (!validateRegex(email, RegexConstants.EMAIL_ID_REGEX))
-			return false;
-		else
-			return true;
+	@Test
+	public void testFirstName_thenAssertionFail() {
+		try {
+			assertTrue(user.isValidateFirstName("bunny"));
+			System.out.println("Valid First Name");
+		} catch (UserRegistrationException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
-	public boolean isValidateMobileNumber(String mobileNumber) {
-		if (!validateRegex(mobileNumber, RegexConstants.MOBILE_NUMBER_REGEX))
-			return false;
-		else
-			return true;
+	@Test
+	public void testLastName_thenAssertionSucceeds() {
+		try {
+			assertTrue(user.isValidateLastName("Mahajan"));
+			System.out.println("Valid Last Name");
+		} catch (UserRegistrationException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
-	public boolean isValidatePassword(String password) {
-		if (!validateRegex(password, RegexConstants.PASSWORD_REGEX))
-			return false;
-		else
-			return true;
+	@Test
+	public void testLastName_thenAssertionFail() {
+		try {
+			assertTrue(user.isValidateLastName("devil"));
+			System.out.println("Valid Last Name");
+		} catch (UserRegistrationException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
-	private boolean validateRegex(String request, String pattern) {
-		return Pattern.compile(pattern).matcher(request).matches() ? true : false;
+	@Test
+	public void testEmail_thenAssertionSucceeds() {
+		try {
+			assertTrue(user.isValidateEmail("abc@gmail.com"));
+			System.out.println("Valid Email");
+		} catch (UserRegistrationException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	@Test
+	public void testEmail_thenAssertionFail() {
+		try {
+			assertTrue(user.isValidateEmail("abc@gmail@.com@"));
+			System.out.println("Valid Email");
+		} catch (UserRegistrationException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	@Test
+	public void testMobileNumber_thenAssertionSucceeds() throws UserRegistrationException {
+		assertTrue(user.isValidateMobileNumber("9876543210"));
+		System.out.println("Valid Mobile Number");
+
+	}
+
+	@Test
+	public void testMobileNumber_thenAssertionFail() {
+		try {
+			assertTrue(user.isValidateMobileNumber("91 0876543210"));
+			System.out.println("Valid Mobile Number");
+		} catch (UserRegistrationException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	@Test
+	public void testPassword_thenAssertionSucceeds() {
+		try {
+			assertTrue(user.isValidatePassword("Abcd@1234"));
+			System.out.println("Valid Password");
+		} catch (UserRegistrationException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	@Test
+	public void testPassword_thenAssertionSucceeds1() {
+		try {
+			assertTrue(user.isValidatePassword("Abcdefg@"));
+			System.out.println("Valid Password");
+		} catch (UserRegistrationException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	@Test
+	public void testPassword_thenAssertionSucceeds2() {
+		try {
+			assertTrue(user.isValidatePassword("1221212234"));
+			System.out.println("Valid Password");
+		} catch (UserRegistrationException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	@Test
+	public void testPassword_thenAssertionSucceeds3() {
+		try {
+			assertTrue(user.isValidatePassword("Ab@1234@@"));
+			System.out.println("Valid Password");
+		} catch (UserRegistrationException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	@Test
+	public void testPassword_thenAssertionFail() {
+		try {
+			assertTrue(user.isValidatePassword("bbb"));
+			System.out.println("Valid Password");
+		} catch (UserRegistrationException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	@Test(expected = UserRegistrationException.class)
+	public void whenUserRegistrationExceptionThrown_thenAssertionSucceeds() throws UserRegistrationException {
+		assertTrue(user.isValidatePassword("bbb"));
+	}
+
+	@After
+	public void nullObj() {
+		user = null;
 	}
 }
